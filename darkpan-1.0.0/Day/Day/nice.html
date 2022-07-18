@@ -1,0 +1,51 @@
+// first dropdown search inside your fetchData function
+        if(cateSelect11.value) {
+            quizManager=quizManager.filter(el => el.category.toLowerCase() == cateSelect11.value.toLowerCase() )
+        }
+
+        // second input search inside your fetchData function declear search variable globally
+        if (search.value) {
+            quizManager=quizManager.filter(el => el.category.toLowerCase().startsWith(search.value.toLowerCase()) || el.question.toLowerCase().startsWith(search.value.toLowerCase()))
+        }
+
+
+        fisrt too no dey pain 
+        cateSelect11.innerHTML = ""
+cateSelect11.innerHTML = "<option value=''>Search by Category</option>"
+let categoryList1 = JSON.parse(localStorage.getItem("categories")) || null;
+if (categoryList1 !== null) {
+    categoryList1 = categoryList1.filter(el => el.catesel3 == "Active")
+    for (let ind = 0; ind < categoryList1.length; ind++) {   
+        cateSelect11.innerHTML +=`<option value="${categoryList1[ind].catesel1}">${categoryList1[ind].catesel1}</option>`;  
+    }
+}
+
+
+delete
+function deleteQuiz(ind) {
+    swal({
+        title: "Are you sure?",
+        text: "Once deleted, you will not be able to recover Quiz",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+    })
+   .then((willDelete) => {
+        if (willDelete) {
+            var holder1 = JSON.parse(localStorage.getItem('quizLayout'));
+            if (holder1) {
+               holder1.splice(ind, 1); 
+               localStorage.setItem('quizLayout', JSON.stringify(holder1))
+            }
+            fetchData();
+            swal("Quiz has been deleted!", {
+                icon: "success",
+            });
+          }else {
+           fetchData();
+           swal("Quiz still In Check", {
+               icon: "success",
+            }); 
+        }  
+   });       
+};
